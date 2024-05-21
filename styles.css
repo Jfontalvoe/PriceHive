@@ -1,0 +1,66 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    height: 100%    ;
+}
+
+body{
+    flex: 1;
+}
+
+header .header-content {
+    height: 80px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 20px;
+    background: #1c1f2a;
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header .header-content .logo {
+    height: 100px;
+    margin-right: 30px;
+}
+
+header .header-content .busqueda {
+    display: flex;
+    align-items: center;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+}
+
+header .header-content .busqueda .input {
+    font-size: 16px;
+    width: 400px;
+    border: none;
+    padding: 10px 15px;
+    background: none;
+    outline: none;
+    color: #333;
+}
+
+header .header-content .busqueda .botonBusqueda {
+    background: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #333;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+header .header-content .busqueda .botonBusqueda:hover {
+    background: #f7bf22;
+    color: #fff;
+}
+
+
