@@ -19,6 +19,57 @@
             </div>
         </div>
     </header>
+    <nav>
+        <div class="descripcion">
+            <h2>Bienvenido a <span>PriceHive</span></h2>
+            <p>Encuentra los mejores precios para tus productos de tecnología favoritos en las principales tiendas de comercio electrónico en Colombia y el exterior.</p>
+            <h3>Nuestras tiendas:</h3>
+            <div class="logos">
+                <img src="https://cccasanare.co/wp-content/uploads/2024/01/mercado-libre.png" alt="Logo 1"
+                    class="store-logo">
+                <img src="https://www.alkosto.com/medias/alkosto-logo.svg?context=bWFzdGVyfGltYWdlc3wxMjMxMnxpbWFnZS9zdmcreG1sfGFXMWhaMlZ6TDJnMllTOW9NMlV2T1RrNU1URXhNREEyTmpJd05pNXpkbWN8OGRhMGMwM2M1M2FmNjk1MTRhODkzZjQ3NmI4OTU2N2Y1MTg5NmJlYWUxMTU5Njc1NmVkZjgxYzRlY2M0YjQ0Yw"
+                    alt="Logo 2" class="store-logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Ol%C3%ADmpica_%28Colombia%29_logo.svg/512px-Ol%C3%ADmpica_%28Colombia%29_logo.svg.png"
+                    alt="Logo 3" class="store-logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Falabella.svg/2560px-Falabella.svg.png"
+                    alt="Logo 4" class="store-logo">
+                <img src="https://d1rnpo543m3vxh.cloudfront.net/content/setting-store/exitocol/fastStoreConfiguration/64-fileWidget-root_iconExito.svg?v=1712607924186"
+                    alt="Logo 5" class="store-logo">
+            </div>
+        </div>
+    </nav>
+    <div class="product-name">
+        <h4 id="searchResultText">Prueba</h4>
+    </div>
+    <section class="product-content">
+        <div class="filtros">
+            <!-- Filtrar por tienda usando checkboxes -->
+            <div class="filtro-section">
+                <a class="label-title">Filtrar por Tienda:</a>
+                <div id="filtroTienda">
+                </div>
+            </div>
+            <!-- Ordenar por precio usando option buttons -->
+            <div class="filtro-section">
+                <a class="label-title">Ordenar Por:</a>
+                <div>
+                    <input type="radio" id="sortLower" name="sortPrice" value="lower" checked>
+                    <label for="sortLower">Menor precio</label>
+                </div>
+                <div>
+                    <input type="radio" id="sortHigher" name="sortPrice" value="higher">
+                    <label for="sortHigher">Mayor precio</label>
+                </div>
+            </div>
+        </div>
+        <div class="products-container">
+            <div id="cards-container"></div>
+            <div id="paginacion"></div>
+        </div>
+    </section>
+    <footer>
+        <p>Copyright &copy; 2024 All Rights Reserved by <span>Jonathan Fontalvo</span> and <span>Ehider Guarín</span>.</p>
+    </footer>
     
 </body>
 </html>

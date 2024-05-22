@@ -13,6 +13,8 @@ body{
     flex: 1;
 }
 
+/*-------------- INICIO HEADER -----------------*/
+
 header .header-content {
     height: 80px;
     display: flex;
@@ -63,4 +65,293 @@ header .header-content .busqueda .botonBusqueda:hover {
     color: #fff;
 }
 
+/*-------------- FIN HEADER -----------------*/
+
+/*-------------- INICIO NAV -----------------*/
+
+nav .descripcion {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ajusta la altura al 100% del viewport height */
+    background-image: url('assets/images/banner.png');
+    background-size: cover; /* Asegura que la imagen cubra todo el área */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat;
+    width: 100%;
+    position: relative;
+}
+
+nav .descripcion h2 {
+    color: #1c1f2a;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    line-height: 1;
+    font-size: 3vw; /* Usa unidades relativas para el tamaño del texto */
+    font-weight: 800;
+}
+
+nav .descripcion h2 span {
+    margin-left: 15px;
+    color: #f7bf22;
+}
+
+nav .descripcion .logos {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 30px;
+    background-color: transparent;
+}
+
+nav .descripcion .logos .store-logo {
+    height: 50px;
+    width: auto;
+}
+
+/* Media queries para pantallas más pequeñas */
+@media (max-width: 768px) {
+    nav .descripcion h2 {
+        width: 70%;
+        font-size: 5vw; /* Ajusta el tamaño del texto en pantallas más pequeñas */
+    }
+
+    nav .descripcion .logos {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    nav .descripcion .logos .store-logo {
+        height: 40px; /* Ajusta el tamaño de los logos */
+        margin-bottom: 10px;
+    }
+}
+
+/*-------------- FIN NAV -----------------*/
+
+
+
+/*------------------ INICIO DE CARD -----------------*/
+
+#cards-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+}
+
+#cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    width: 240px;
+    height: 500px;
+    margin: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid #ccc;
+    margin-bottom: 30px;
+}
+
+.card-image {
+    height: 50%;
+    width: 100%;
+    background-color: #ffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.card-info {
+    height: 40%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.card-info h3,
+.card-info p,
+.card-info a {
+    margin: 5px 0;
+    text-align: center;
+}
+
+.card-info h3 {
+    line-height: 1;
+    font-size: 14px;
+}
+
+.card-info p {
+    font-size: 16px;
+}
+
+.price {
+    color: red;
+}
+
+.card-info .product-button {
+    padding: 10px 20px;
+    background-color:#1c1f2a;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.card-info .product-button:hover {
+    background: #f7bf22;
+    color: #fff;
+}
+
+/*------------------ FIN DE CARD -----------------*/
+
+/*------------------------------- INICIO PAGINA PRODUCTOO ---------------------------------*/
+
+.product-content {
+    display: flex;
+    align-items: start;
+    margin: 30px 0;
+    padding: 0 7%;
+}
+
+/*-------- INICIO FILTROS ----------*/
+.product-content .filtros {
+    display: none;
+    margin-right: 20px;
+}
+
+.filtro-section {
+    background-color: #6a98c9cb;
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.filtro-section .label-title {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #fff;
+    color: #FFF;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 200;
+}
+
+.filtro-section label {
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    margin: 5px 0;
+    display: block;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.filtro-section input[type="radio"],
+.filtro-section input[type="checkbox"] {
+    display: none;
+}
+
+.filtro-section input[type="radio"]:checked+label,
+.filtro-section input[type="checkbox"]:checked+label {
+    background-color:#1c1f2a;
+    color: white;
+}
+
+.filtro-section label:hover {
+    background-color: #e7f1ff;
+}
+
+.filtro-section input[type="checkbox"]:checked+label {
+    background-color: #1c1f2a;
+    color: white;
+}
+/*--------- FIN FILTRO -----------*/
+
+
+#searchResultText {
+    display: none;
+    color: #ccc;
+    margin: 40px 7% 20px;
+    font-size: 25px;
+}
+
+
+
+/*------- INICIO PAGINACION --------*/
+#paginacion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 10px;
+    margin-right: 5px;
+}
+
+.page-button {
+    padding: 10px 15px;
+    margin: 0 5px;
+    background-color: #6A98C9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: red 0.2s;
+}
+
+.page-button:hover {
+    background-color: #1c1f2a;
+}
+
+.page-button.active {
+    background-color: #1c1f2a;
+}
+
+/*----- FIN PAGINATION ------*/
+
+/*------------------------------- FIN PAGINA PRODUCTYO ---------------------------------*/
+
+
+/*-------------- INICIO FOOTER -----------------*/
+footer {
+    background-color: #1c1f2a;
+    width: 100%;
+    height: 60px;
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer p{
+    display: flex;
+    justify-content: center;
+}
+footer p span{
+    margin: 0 5px;
+    color: #f7bf22;
+}
+/*-------------- FIN FOOTER -----------------*/
 
