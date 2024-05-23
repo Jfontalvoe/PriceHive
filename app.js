@@ -8,7 +8,12 @@ function buscarProductos() {
     document.getElementById('searchResultText').style.display = 'block';
     document.getElementById('searchResultText').innerHTML = '<img src="/assets/images/Loading.gif" alt="Cargando...">';
     fetch(`http://localhost:9000/search?query=${encodeURIComponent(consultaBusqueda)}`)
-        .then(respuesta => respuesta.json())
+        .then(respuesta => {
+            if (!respuesta.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return respuesta.json();
+        })
         .then(datos => {
             todosLosProductos = [].concat(...Object.values(datos));
             if (todosLosProductos.length > 0) {
@@ -25,7 +30,11 @@ function buscarProductos() {
         })
         .catch(error => {
             console.error('Error:', error);
-            document.getElementById('searchResultText').textContent = 'Error al buscar artículos. Por favor, intente nuevamente.';
+            if (error instanceof TypeError && error.message.includes('timeout')) {
+                document.getElementById('searchResultText').textContent = 'La búsqueda ha tardado demasiado tiempo. Por favor, inténtelo nuevamente.';
+            } else {
+                document.getElementById('searchResultText').textContent = 'Error al buscar artículos. Por favor, intente nuevamente.';
+            }
         });
 }
 

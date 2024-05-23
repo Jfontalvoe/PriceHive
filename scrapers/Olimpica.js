@@ -8,8 +8,9 @@ async function scrapeOlimpica(searchQuery) {
     const page = await browser.newPage();
     await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36');
 
-    await page.goto('https://www.olimpica.com/' + encodeURIComponent(searchQuery))
-    await page.waitForSelector('.vtex-product-summary-2-x-container', { timeout: 10000 });
+    const searchUrl = `https://www.olimpica.com/${encodeURIComponent(searchQuery)}`;
+    await page.goto(searchUrl, { waitUntil: 'networkidle0' });
+    await page.waitForSelector('.vtex-product-summary-2-x-container', { timeout: 60000 });
 
     const filteredProducts = await page.evaluate((query) => {
         function normalizeString(str) {
@@ -23,15 +24,21 @@ async function scrapeOlimpica(searchQuery) {
         }
 
         const productCards = document.querySelectorAll('.vtex-product-summary-2-x-container');
-        const limitedProducts = Array.from(productCards).slice(0, 5).map(card => { 
-            const title = card.querySelector('.vtex-product-summary-2-x-productNameContainer') ? card.querySelector('.vtex-product-summary-2-x-productNameContainer').innerText : 'No title available';
-            const price = card.querySelector('.vtex-product-price-1-x-sellingPriceValue') ? card.querySelector('.vtex-product-price-1-x-sellingPriceValue').innerText.replace(/\D/g, '') : 'No price available';
-            const link = card.querySelector('a.vtex-product-summary-2-x-clearLink') ? card.querySelector('a.vtex-product-summary-2-x-clearLink').href : 'No link available';
-            const imageUrl = card.querySelector('.vtex-product-summary-2-x-imageNormal') ? card.querySelector('.vtex-product-summary-2-x-imageNormal').src : 'No image available';
-            return { title, price, link, imageUrl, storeName: 'Olimpica' };
-        })
-        .filter(product => queryMatchTitle(query, product.title));
-        return limitedProducts.sort((a, b) => a.price - b.price).slice(0, 3);
+        const products = Array.from(productCards).slice(0, 5).map(card => {
+            const titleElement = card.querySelector('.vtex-product-summary-2-x-productNameContainer');
+            const priceElement = card.querySelector('.vtex-product-price-1-x-sellingPriceValue');
+            const linkElement = card.querySelector('a.vtex-product-summary-2-x-clearLink');
+            const imageElement = card.querySelector('.vtex-product-summary-2-x-imageNormal');
+
+            const title = titleElement ? titleElement.innerText : 'No title available';
+            const price = priceElement ? priceElement.innerText.replace(/\D/g, '') : 'No price available';
+            const link = linkElement ? linkElement.href : 'No link available';
+            const imageUrl = imageElement ? imageElement.src : 'No image available';
+
+            return { title, price: parseInt(price, 10), link, imageUrl, storeName: 'Olimpica' };
+        }).filter(product => queryMatchTitle(query, product.title));
+
+        return products.sort((a, b) => a.price - b.price).slice(0, 3);
     }, searchQuery);
 
     await browser.close();

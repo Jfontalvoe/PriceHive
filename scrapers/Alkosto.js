@@ -23,14 +23,14 @@ async function scrapeAlkosto(searchQuery) {
         }
 
         const productCards = document.querySelectorAll('.product__item');
-        const limitedProducts = Array.from(productCards).slice(0, 5).map(card => { 
+        const limitedProducts = Array.from(productCards).slice(0, 5).map(card => {
             const title = card.querySelector('.product__item__top__title') ? card.querySelector('.product__item__top__title').innerText : 'No title available';
             const price = card.querySelector('.product__price--discounts__price') ? card.querySelector('.product__price--discounts__price').innerText.replace(/\D/g, '') : 'No price available';
-            const link = card.querySelector('.product__item__top__title').getAttribute('data-url') ? window.location.origin + card.querySelector('.product__item__top__title').getAttribute('data-url') : 'Link no available';
+            const link = card.querySelector('.product__item__top__title').getAttribute('data-url') ? window.location.origin + card.querySelector('.product__item__top__title').getAttribute('data-url') : 'No link available';
             const imageUrl = card.querySelector('.product__item__information__image img') ? card.querySelector('.product__item__information__image img').src : 'No image available';
             return { title, price, link, imageUrl, storeName: 'Alkosto' };
-        })  
-        .filter(product => queryMatchTitle(query, product.title));
+        }).filter(product => queryMatchTitle(query, product.title));
+
         return limitedProducts.sort((a, b) => a.price - b.price).slice(0, 3);
     }, searchQuery);
 
