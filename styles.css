@@ -31,39 +31,6 @@ header .header-content .logo {
     margin-right: 30px;
 }
 
-header .header-content .busqueda {
-    display: flex;
-    align-items: center;
-    border: 2px solid #fff;
-    border-radius: 8px;
-    overflow: hidden;
-    background: #fff;
-}
-
-header .header-content .busqueda .input {
-    font-size: 16px;
-    width: 400px;
-    border: none;
-    padding: 10px 15px;
-    background: none;
-    outline: none;
-    color: #333;
-}
-
-header .header-content .busqueda .botonBusqueda {
-    background: #fff;
-    border: none;
-    cursor: pointer;
-    padding: 10px 15px;
-    font-size: 16px;
-    color: #333;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-header .header-content .busqueda .botonBusqueda:hover {
-    background: #f7bf22;
-    color: #fff;
-}
 
 /*-------------- FIN HEADER -----------------*/
 
@@ -84,6 +51,7 @@ nav .descripcion {
 }
 
 nav .descripcion h2 {
+    margin-top: 50px;
     color: #1c1f2a;
     margin: 0;
     display: flex;
@@ -99,35 +67,48 @@ nav .descripcion h2 span {
     color: #f7bf22;
 }
 
-nav .descripcion .logos {
+nav .descripcion h2 p{
+    font-weight: 300;
+    margin-top: 30px;
+
+}
+
+nav .descripcion .busqueda {
     display: flex;
-    justify-content: space-around;
     align-items: center;
-    padding: 30px;
-    background-color: transparent;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
 }
 
-nav .descripcion .logos .store-logo {
-    height: 50px;
-    width: auto;
+nav .descripcion .busqueda .input {
+    font-size: 16px;
+    width: 400px;
+    border: none;
+    padding: 10px 15px;
+    background: none;
+    outline: none;
+    color: #333;
 }
 
-/* Media queries para pantallas más pequeñas */
-@media (max-width: 768px) {
-    nav .descripcion h2 {
-        width: 70%;
-        font-size: 5vw; /* Ajusta el tamaño del texto en pantallas más pequeñas */
-    }
+nav .descripcion .busqueda .botonBusqueda {
+    background: #1c1f2a;
+    border: none;
+    cursor: pointer;
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #fff;
+    transition: background-color 0.3s, color 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
 
-    nav .descripcion .logos {
-        flex-direction: column;
-        padding: 20px;
-    }
-
-    nav .descripcion .logos .store-logo {
-        height: 40px; /* Ajusta el tamaño de los logos */
-        margin-bottom: 10px;
-    }
+nav .descripcion .busqueda .botonBusqueda:hover {
+    background: #f7bf22;
+    color: #fff;
 }
 
 /*-------------- FIN NAV -----------------*/
@@ -137,89 +118,92 @@ nav .descripcion .logos .store-logo {
 /*------------------ INICIO DE CARD -----------------*/
 
 #cards-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: start;
-}
-
-#cards-container {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
     justify-content: center;
+    background-color: #FFF;
 }
 
 .card {
-    width: 240px;
-    height: 500px;
-    margin: 10px;
-    overflow: hidden;
+    width: 100%;
+    height: auto;
     display: flex;
     flex-direction: column;
     background: #fff;
-    border: 1px solid #ccc;
-    margin-bottom: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .card-image {
-    height: 50%;
+    height: 200px;
     width: 100%;
-    background-color: #ffff;
+    background-color: #e0e0e0;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-bottom: 1px solid #ccc;
 }
 
 .card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
 }
 
 .card-info {
-    height: 40%;
-    padding: 10px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-}
-
-.card-info h3,
-.card-info p,
-.card-info a {
-    margin: 5px 0;
-    text-align: center;
+    justify-content: space-between;
+    height: 100%;
 }
 
 .card-info h3 {
-    line-height: 1;
-    font-size: 14px;
+    margin: 10px 0;
+    font-size: 18px;
+    color: #333;
+    text-align: left;
 }
 
 .card-info p {
-    font-size: 16px;
+    font-size: 14px;
+    color: #666;
+    text-align: left;
+    flex-grow: 1;
 }
 
 .price {
-    color: red;
+    font-size: 20px;
+    color: #e91e63;
+    text-align: left;
 }
 
 .card-info .product-button {
-    padding: 10px 20px;
-    background-color:#1c1f2a;
+    padding: 15px;
+    background-color: #1c1f2a;
     color: white;
     border: none;
-    border-radius: 7px;
+    border-radius: 5px;
     cursor: pointer;
     text-align: center;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 16px;
     transition: background-color 0.3s, color 0.3s;
+    margin-top: 20px;
 }
 
 .card-info .product-button:hover {
     background: #f7bf22;
-    color: #fff;
+    color: #1c1f2a;
 }
 
 /*------------------ FIN DE CARD -----------------*/
@@ -228,10 +212,15 @@ nav .descripcion .logos .store-logo {
 
 .product-content {
     display: flex;
-    align-items: start;
-    margin: 30px 0;
-    padding: 0 7%;
+    flex-direction: column;
+    align-items: center;
+    margin: 40px 0;
+    padding: 0 5%;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 
 /*-------- INICIO FILTROS ----------*/
 .product-content .filtros {
@@ -239,12 +228,11 @@ nav .descripcion .logos .store-logo {
     margin-right: 20px;
 }
 
+
+
 .filtro-section {
-    background-color: #6a98c9cb;
+    background-color: none;
     padding: 30px;
-    border-radius: 15px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
 }
 
@@ -253,7 +241,7 @@ nav .descripcion .logos .store-logo {
     font-weight: bold;
     margin-bottom: 30px;
     border-bottom: 1px solid #fff;
-    color: #FFF;
+    color: #1c1f2a;
     font-size: 20px;
     text-transform: uppercase;
     font-weight: 200;
@@ -261,7 +249,7 @@ nav .descripcion .logos .store-logo {
 
 .filtro-section label {
     padding: 10px;
-    background-color: #fff;
+    background-color: #f7bf22;
     border-radius: 5px;
     margin: 5px 0;
     display: block;
@@ -276,12 +264,12 @@ nav .descripcion .logos .store-logo {
 
 .filtro-section input[type="radio"]:checked+label,
 .filtro-section input[type="checkbox"]:checked+label {
-    background-color:#1c1f2a;
+    background-color: #1c1f2a;
     color: white;
 }
 
 .filtro-section label:hover {
-    background-color: #e7f1ff;
+    background-color: gray;
 }
 
 .filtro-section input[type="checkbox"]:checked+label {
@@ -293,39 +281,43 @@ nav .descripcion .logos .store-logo {
 
 #searchResultText {
     display: none;
-    color: #ccc;
-    margin: 40px 7% 20px;
-    font-size: 25px;
+    text-align: center;
+    margin: 20px 0;
+    font-size: 18px;
+    color: #1c1f2a
 }
 
 
 
 /*------- INICIO PAGINACION --------*/
+
 #paginacion {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
-    padding: 5px 10px;
-    margin-right: 5px;
+    padding: 20px;
+    background-color:#FFF;
+    border-top: 1px solid #fff;
 }
 
 .page-button {
-    padding: 10px 15px;
-    margin: 0 5px;
-    background-color: #6A98C9;
+    padding: 12px 20px;
+    margin: 0 10px;
+    background-color: #666;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 30px;
     cursor: pointer;
-    transition: red 0.2s;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 .page-button:hover {
-    background-color: #1c1f2a;
+    background-color: #f7bf22;
+    transform: scale(1.1);
 }
 
 .page-button.active {
-    background-color: #1c1f2a;
+    background-color: #f7bf22;
 }
 
 /*----- FIN PAGINATION ------*/

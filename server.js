@@ -1,12 +1,13 @@
 const express = require('express');
 const cors = require('cors');
-const scrapeAlkosto = require('./scrapers/scrapeAlkosto');
-const scrapeExito = require('./scrapers/scrapeExito');
-const scrapeFalabella = require('./scrapers/scrapeFalabella');
-const scrapeMercadoLibre = require('./scrapers/scrapeMercadoLibre');
-const scrapeOlimpica = require('./scrapers/scrapeOlimpica');
 const app = express();
-const port = 3000;
+const port = 9000;
+const scrapeExito = require('./scrapers/Exito');
+const scrapeAlkosto = require('./scrapers/Alkosto');
+const scrapeMercadoLibre = require('./scrapers/MercadoLibre');
+const scrapeFalabella = require('./scrapers/Falabella');
+const scrapeOlimpica = require('./scrapers/Olimpica');
+
 
 app.use(cors());
 app.use(express.static('public'));
@@ -21,6 +22,7 @@ async function runParallelSearchesAndSave(searchQuery) {
 }
 
 app.get('/search', async (req, res) => {
+    console.log('Buscando productos...');
     const searchQuery = req.query.query;
     if (!searchQuery) {
         res.status(400).send("El término de búsqueda está vacío.");

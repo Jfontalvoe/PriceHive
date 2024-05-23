@@ -8,38 +8,26 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:&display=swap" rel="stylesheet">
+    <script src="/app.js"></script>
 </head>
 <body>
     <header>
         <div class="header-content">
             <img class="logo" src="/assets/images/logo-transparente.png" alt="Logo">
-            <div class="busqueda">
-                <input class="input" type="text" placeholder="Ingresar producto" id="searchQuery">
-                <button class="botonBusqueda" onclick="" >Buscar</button>
-            </div>
         </div>
     </header>
     <nav>
         <div class="descripcion">
             <h2>Bienvenido a <span>PriceHive</span></h2>
             <p>Encuentra los mejores precios para tus productos de tecnología favoritos en las principales tiendas de comercio electrónico en Colombia y el exterior.</p>
-            <h3>Nuestras tiendas:</h3>
-            <div class="logos">
-                <img src="https://cccasanare.co/wp-content/uploads/2024/01/mercado-libre.png" alt="Logo 1"
-                    class="store-logo">
-                <img src="https://www.alkosto.com/medias/alkosto-logo.svg?context=bWFzdGVyfGltYWdlc3wxMjMxMnxpbWFnZS9zdmcreG1sfGFXMWhaMlZ6TDJnMllTOW9NMlV2T1RrNU1URXhNREEyTmpJd05pNXpkbWN8OGRhMGMwM2M1M2FmNjk1MTRhODkzZjQ3NmI4OTU2N2Y1MTg5NmJlYWUxMTU5Njc1NmVkZjgxYzRlY2M0YjQ0Yw"
-                    alt="Logo 2" class="store-logo">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Ol%C3%ADmpica_%28Colombia%29_logo.svg/512px-Ol%C3%ADmpica_%28Colombia%29_logo.svg.png"
-                    alt="Logo 3" class="store-logo">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Falabella.svg/2560px-Falabella.svg.png"
-                    alt="Logo 4" class="store-logo">
-                <img src="https://d1rnpo543m3vxh.cloudfront.net/content/setting-store/exitocol/fastStoreConfiguration/64-fileWidget-root_iconExito.svg?v=1712607924186"
-                    alt="Logo 5" class="store-logo">
+            <div class="busqueda">
+                <input class="input" type="text" placeholder="Ingresar producto" id="searchQuery">
+                <button class="botonBusqueda" onclick="buscarProductos()" >Buscar</button>
             </div>
         </div>
     </nav>
     <div class="product-name">
-        <h4 id="searchResultText">Prueba</h4>
+        <h4 id="searchResultText"></h4>
     </div>
     <section class="product-content">
         <div class="filtros">

@@ -1,153 +1,142 @@
-let currentPage = 1;
-const cardsPerPage = 5;
-let allProducts = [];
-let currentFilteredProducts = [];
+let paginaActual = 1;
+const tarjetasPorPagina = 5;
+let todosLosProductos = [];
+let productosFiltradosActuales = [];
 
-function searchProducts() {
-    const searchQuery = document.getElementById('searchQuery').value;
+function buscarProductos() {
+    const consultaBusqueda = document.getElementById('searchQuery').value;
     document.getElementById('searchResultText').style.display = 'block';
-    document.getElementById('searchResultText').textContent = 'Estamos buscando y comparando los precios de tus productos, espera un momento por favor.';
-    fetch(`http://localhost:3000/search?query=${encodeURIComponent(searchQuery)}`)
-        .then(response => response.json())
-        .then(data => {
-            allProducts = [].concat(...Object.values(data));
-            if (allProducts.length > 0) {
-                document.getElementById('searchResultText').textContent = 'Resultados de búsqueda para: ' + searchQuery;
+    document.getElementById('searchResultText').innerHTML = '<img src="/assets/images/Loading.gif" alt="Cargando...">';
+    fetch(`http://localhost:9000/search?query=${encodeURIComponent(consultaBusqueda)}`)
+        .then(respuesta => respuesta.json())
+        .then(datos => {
+            todosLosProductos = [].concat(...Object.values(datos));
+            if (todosLosProductos.length > 0) {
+                document.getElementById('searchResultText').textContent = 'Resultado de la búsqueda de: ' + consultaBusqueda;
             } else {
-                document.getElementById('searchResultText').textContent = 'No se encontraron productos para: ' + searchQuery;
+                document.getElementById('searchResultText').textContent = 'No se encontraron resultados de: ' + consultaBusqueda;
             }
-            currentFilteredProducts = allProducts;
-            allProducts.sort((a, b) => a.price - b.price);
-            displayFilters();
-            currentFilteredProducts = allProducts.slice();
-            showCards(currentFilteredProducts);
-            setupPagination(currentFilteredProducts);
+            productosFiltradosActuales = todosLosProductos;
+            todosLosProductos.sort((a, b) => a.price - b.price);
+            mostrarFiltros();
+            productosFiltradosActuales = todosLosProductos.slice();
+            mostrarTarjetas(productosFiltradosActuales);
+            configurarPaginacion(productosFiltradosActuales);
         })
         .catch(error => {
             console.error('Error:', error);
-            document.getElementById('searchResultText').textContent = 'Error al buscar productos. Por favor, vuelva a intentarlo.';
+            document.getElementById('searchResultText').textContent = 'Error al buscar artículos. Por favor, intente nuevamente.';
         });
 }
 
-function showCards(filteredProducts = allProducts) {
-    const cardsContainer = document.getElementById('cards-container');
-    updateActiveButton();
-    cardsContainer.innerHTML = '';
-    let start = (currentPage - 1) * cardsPerPage;
-    let end = start + cardsPerPage;
-    for (let i = start; i < end && i < filteredProducts.length; i++) {
-        const product = filteredProducts[i];
-        let card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-                    <div class="card-image">
-                        <img src="${product.imageUrl}" alt="Imagen de ${product.title}">
-                    </div>
-                    <div class="card-info">
-                        <h3>${product.title}</h3>
-                        <p class="price">$${product.price}</p>
-                        <p>${product.storeName || 'Nombre de tienda no disponible'}</p>
-                        <button onclick="window.open('${product.link}', '_blank')" class="product-button">Ver Producto</button>
-                    </div>`;
-        cardsContainer.appendChild(card);
+function mostrarTarjetas(productosFiltrados = todosLosProductos) {
+    const contenedorTarjetas = document.getElementById('cards-container');
+    actualizarBotonActivo();
+    contenedorTarjetas.innerHTML = '';
+    let inicio = (paginaActual - 1) * tarjetasPorPagina;
+    let fin = inicio + tarjetasPorPagina;
+    for (let i = inicio; i < fin && i < productosFiltrados.length; i++) {
+        const producto = productosFiltrados[i];
+        let tarjeta = document.createElement('div');
+        tarjeta.className = 'card';
+        tarjeta.innerHTML = `
+            <div class="card-image">
+                <img src="${producto.imageUrl}" alt="Imagen de ${producto.title}">
+            </div>
+            <div class="card-info">
+                <h3>${producto.title}</h3>
+                <p class="price">$${producto.price}</p>
+                
+                <p>${producto.storeName || 'Nombre de tienda no encontrado.'}</p>
+                <button onclick="window.open('${producto.link}', '_blank')" class="product-button">Ir a comprar</button>
+            </div>`;
+        contenedorTarjetas.appendChild(tarjeta);
     }
 }
 
-function setupPagination(filteredProducts) {
-    const pagination = document.getElementById('pagination');
-    pagination.innerHTML = '';
-
-    const pageCount = Math.ceil(filteredProducts.length / cardsPerPage);
-    for (let i = 1; i <= pageCount; i++) {
-        let button = document.createElement('button');
-        button.className = 'page-button';
-        button.innerText = i;
-        button.addEventListener('click', () => {
-            currentPage = i;
-            showCards(filteredProducts);
+function configurarPaginacion(productosFiltrados) {
+    const paginacion = document.getElementById('paginacion');
+    paginacion.innerHTML = '';
+    const totalPaginas = Math.ceil(productosFiltrados.length / tarjetasPorPagina);
+    for (let i = 1; i <= totalPaginas; i++) {
+        let boton = document.createElement('button');
+        boton.className = 'page-button';
+        boton.innerText = i;
+        boton.addEventListener('click', () => {
+            paginaActual = i;
+            mostrarTarjetas(productosFiltrados);
         });
-        pagination.appendChild(button);
+        paginacion.appendChild(boton);
     }
-    updateActiveButton();
+    actualizarBotonActivo();
 }
 
-function updateActiveButton() {
-    const buttons = document.querySelectorAll('.page-button');
-    buttons.forEach(button => {
-        if (parseInt(button.innerText) === currentPage) {
-            button.classList.add('active');
+function actualizarBotonActivo() {
+    const botones = document.querySelectorAll('.page-button');
+    botones.forEach(boton => {
+        if (parseInt(boton.innerText) === paginaActual) {
+            boton.classList.add('active');
         } else {
-            button.classList.remove('active');
+            boton.classList.remove('active');
         }
     });
 }
 
-function displayFilters() {
-    const filtersSection = document.querySelector('.filters');
-    filtersSection.style.display = 'block';
-    loadStoresFilters();
+function mostrarFiltros() {
+    const seccionFiltros = document.querySelector('.filtros');
+    seccionFiltros.style.display = 'block';
+    cargarFiltrosTiendas();
 }
 
-function loadStoresFilters() {
-    const stores = [...new Set(allProducts.map(product => product.storeName))];
-    const storeFiltersContainer = document.getElementById('storeFilters');
-    storeFiltersContainer.innerHTML = '';
-
-    stores.forEach(store => {
-        const container = document.createElement('div');
+function cargarFiltrosTiendas() {
+    const tiendas = [...new Set(todosLosProductos.map(producto => producto.storeName))];
+    const contenedorFiltrosTiendas = document.getElementById('filtroTienda');
+    contenedorFiltrosTiendas.innerHTML = '';
+    tiendas.forEach(tienda => {
+        const contenedor = document.createElement('div');
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
-        checkbox.id = store;
-        checkbox.value = store;
-        checkbox.name = "storeFilter";
+        checkbox.id = tienda;
+        checkbox.value = tienda;
+        checkbox.name = "filtroTienda";
         checkbox.checked = true;
-        checkbox.addEventListener('change', filterProductsByStore);
+        checkbox.addEventListener('change', filtrarProductosPorTienda);
 
-        const label = document.createElement('label');
-        label.htmlFor = store;
-        label.textContent = store;
+        const etiqueta = document.createElement('label');
+        etiqueta.htmlFor = tienda;
+        etiqueta.textContent = tienda;
 
-        container.appendChild(checkbox);
-        container.appendChild(label);
-        storeFiltersContainer.appendChild(container);
+        contenedor.appendChild(checkbox);
+        contenedor.appendChild(etiqueta);
+        contenedorFiltrosTiendas.appendChild(contenedor);
     });
 }
 
-function loadStores() {
-    const storeSelect = document.getElementById('filterStore');
-    stores.forEach(store => {
-        const option = document.createElement('option');
-        option.value = store;
-        option.textContent = store;
-        storeSelect.appendChild(option);
-    });
-}
-
-function sortProducts() {
-    const sortOrder = document.querySelector('input[name="sortPrice"]:checked').value;
-    if (sortOrder === 'lower') {
-        currentFilteredProducts.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
-    } else if (sortOrder === 'higher') {
-        currentFilteredProducts.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+function ordenarProductos() {
+    const orden = document.querySelector('input[name="sortPrice"]:checked').value;
+    if (orden === 'lower') {
+        productosFiltradosActuales.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+    } else if (orden === 'higher') {
+        productosFiltradosActuales.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
     }
-    showCards(currentFilteredProducts);
-    setupPagination(currentFilteredProducts);
+    mostrarTarjetas(productosFiltradosActuales);
+    configurarPaginacion(productosFiltradosActuales);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('input[name="sortPrice"]').forEach(input => {
-        input.addEventListener('change', sortProducts);
+        input.addEventListener('change', ordenarProductos);
     });
 });
 
-function filterProductsByStore() {
-    const checkedStores = Array.from(document.querySelectorAll('input[name="storeFilter"]:checked')).map(el => el.value);
-    if (checkedStores.length > 0) {
-        currentFilteredProducts = allProducts.filter(product => checkedStores.includes(product.storeName));
+function filtrarProductosPorTienda() {
+    const tiendasSeleccionadas = Array.from(document.querySelectorAll('input[name="filtroTienda"]:checked')).map(el => el.value);
+    if (tiendasSeleccionadas.length > 0) {
+        productosFiltradosActuales = todosLosProductos.filter(producto => tiendasSeleccionadas.includes(producto.storeName));
     } else {
-        currentFilteredProducts = allProducts.slice();
+        productosFiltradosActuales = todosLosProductos.slice();
     }
-    setupPagination(currentFilteredProducts);
-    showCards(currentFilteredProducts);
-    sortProducts();
+    configurarPaginacion(productosFiltradosActuales);
+    mostrarTarjetas(productosFiltradosActuales);
+    ordenarProductos();
 }
