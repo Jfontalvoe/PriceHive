@@ -241,7 +241,7 @@ nav .descripcion .busqueda .botonBusqueda:hover {
     font-weight: bold;
     margin-bottom: 30px;
     border-bottom: 1px solid #fff;
-    color: #1c1f2a;
+    color: #FFF;
     font-size: 20px;
     text-transform: uppercase;
     font-weight: 200;
@@ -249,7 +249,7 @@ nav .descripcion .busqueda .botonBusqueda:hover {
 
 .filtro-section label {
     padding: 10px;
-    background-color: #f7bf22;
+    background-color: #1c1f2a;
     border-radius: 5px;
     margin: 5px 0;
     display: block;
@@ -264,7 +264,7 @@ nav .descripcion .busqueda .botonBusqueda:hover {
 
 .filtro-section input[type="radio"]:checked+label,
 .filtro-section input[type="checkbox"]:checked+label {
-    background-color: #1c1f2a;
+    background-color: #f7bf22;
     color: white;
 }
 
@@ -273,7 +273,7 @@ nav .descripcion .busqueda .botonBusqueda:hover {
 }
 
 .filtro-section input[type="checkbox"]:checked+label {
-    background-color: #1c1f2a;
+    background-color: #f7bf22;
     color: white;
 }
 /*--------- FIN FILTRO -----------*/

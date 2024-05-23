@@ -11,23 +11,45 @@ const scrapeOlimpica = require('./scrapers/Olimpica');
 
 app.use(cors());
 app.use(express.static('public'));
-
 async function runParallelSearchesAndSave(searchQuery) {
     try {
+        // Empieza a realizar las búsquedas en paralelo
         const [alkosto, exito, falabella, mercadolibre, olimpica] = await Promise.all([
-            scrapeAlkosto(searchQuery),
-            scrapeExito(searchQuery),
-            scrapeFalabella(searchQuery),
-            scrapeMercadoLibre(searchQuery),
-            scrapeOlimpica(searchQuery)
+            // Alkosto
+            scrapeAlkosto(searchQuery).then(result => {
+                console.log('Alkosto search finished');
+                return result;
+            }),
+            // Éxito
+            scrapeExito(searchQuery).then(result => {
+                console.log('Éxito search finished');
+                return result;
+            }),
+            // Falabella
+            scrapeFalabella(searchQuery).then(result => {
+                console.log('Falabella search finished');
+                return result;
+            }),
+            // MercadoLibre
+            scrapeMercadoLibre(searchQuery).then(result => {
+                console.log('MercadoLibre search finished');
+                return result;
+            }),
+            //Olimpica
+            scrapeOlimpica(searchQuery).then(result => {
+                console.log('Olimpica search finished');
+                return result;
+            })
         ]);
         
-        return [].concat(mercadolibre, alkosto, exito, olimpica, falabella);
+        // Concatena los resultados en un solo array
+        return [].concat(mercadolibre, alkosto, exito, falabella);
     } catch (error) {
         console.error('Error during parallel searches:', error);
         throw error; 
     }
 }
+
 
 
 app.get('/search', async (req, res) => {
