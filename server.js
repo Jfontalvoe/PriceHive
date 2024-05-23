@@ -17,32 +17,26 @@ async function runParallelSearchesAndSave(searchQuery) {
         const [alkosto, exito, falabella, mercadolibre, olimpica] = await Promise.all([
             // Alkosto
             scrapeAlkosto(searchQuery).then(result => {
-                console.log('Alkosto search finished');
                 return result;
             }),
             // Éxito
             scrapeExito(searchQuery).then(result => {
-                console.log('Éxito search finished');
                 return result;
             }),
             // Falabella
             scrapeFalabella(searchQuery).then(result => {
-                console.log('Falabella search finished');
                 return result;
             }),
             // MercadoLibre
             scrapeMercadoLibre(searchQuery).then(result => {
-                console.log('MercadoLibre search finished');
                 return result;
             }),
             //Olimpica
             scrapeOlimpica(searchQuery).then(result => {
-                console.log('Olimpica search finished');
                 return result;
             })
         ]);
-        
-        // Concatena los resultados en un solo array
+   
         return [].concat(mercadolibre, alkosto, exito, falabella);
     } catch (error) {
         console.error('Error during parallel searches:', error);
