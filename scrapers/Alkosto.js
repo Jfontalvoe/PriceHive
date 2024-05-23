@@ -1,3 +1,4 @@
+const { timeout } = require('puppeteer');
 const puppeteer = require('puppeteer');
 
 async function scrapeAlkosto(searchQuery) {
@@ -8,8 +9,8 @@ async function scrapeAlkosto(searchQuery) {
     const page = await browser.newPage();
     await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36');
 
-    await page.goto('https://www.alkosto.com//search?text=' + encodeURIComponent(searchQuery) + '&sort=relevance', { waitUntil: 'networkidle0' });
-    await page.waitForSelector('.product__item', { timeout: 60000 });
+    await page.goto('https://www.alkosto.com//search?text=' + encodeURIComponent(searchQuery) + '&sort=relevance', { waitUntil: 'networkidle0', timeout: 100000});
+    await page.waitForSelector('.product__item', { timeout: 100000 });
 
     const filteredProducts = await page.evaluate((query) => {
         function normalizeString(str) {

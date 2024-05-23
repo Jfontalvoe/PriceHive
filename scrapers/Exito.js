@@ -8,8 +8,8 @@ async function scrapeExito(searchQuery) {
     const page = await browser.newPage();
     await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36');
 
-    await page.goto(`https://www.exito.com/s?q=${encodeURIComponent(searchQuery)}&sort=score_desc`, { waitUntil: 'domcontentloaded' });
-    await page.waitForSelector('article[data-fs-product-card]', { timeout: 60000 });
+    await page.goto(`https://www.exito.com/s?q=${encodeURIComponent(searchQuery)}&sort=score_desc`, { waitUntil: 'domcontentloaded', timeout: 100000 });
+    await page.waitForSelector('article[data-fs-product-card]', { timeout: 100000 });
 
     const filteredProducts = await page.evaluate((query) => {
         function normalizeString(str) {

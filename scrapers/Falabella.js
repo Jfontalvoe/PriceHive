@@ -8,8 +8,8 @@ async function scrapeFalabella(searchQuery) {
     const page = await browser.newPage();
     await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36');
 
-    await page.goto(`https://www.falabella.com.co/falabella-co/search/?Ntt=${encodeURIComponent(searchQuery)}`, { waitUntil: 'domcontentloaded' });
-    await page.waitForSelector('.pod', { timeout: 60000 });
+    await page.goto(`https://www.falabella.com.co/falabella-co/search/?Ntt=${encodeURIComponent(searchQuery)}`, { waitUntil: 'domcontentloaded', timeout: 100000 });
+    await page.waitForSelector('.pod', { timeout: 100000 });
 
     const filteredProducts = await page.evaluate((query) => {
         function normalizeString(str) {

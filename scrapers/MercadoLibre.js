@@ -8,8 +8,8 @@ async function scrapeMercadoLibre(searchQuery) {
     const page = await browser.newPage();
     await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36');
 
-    await page.goto('https://listado.mercadolibre.com.co/' + encodeURIComponent(searchQuery), { waitUntil: 'networkidle0' });
-    await page.waitForSelector('.ui-search-result__wrapper', { timeout: 60000 });
+    await page.goto('https://listado.mercadolibre.com.co/' + encodeURIComponent(searchQuery), { waitUntil: 'networkidle0', timeout: 100000 });
+    await page.waitForSelector('.ui-search-result__wrapper', { timeout: 100000 });
 
     const filteredProducts = await page.evaluate((query) => {
         function normalizeString(str) {

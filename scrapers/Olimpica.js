@@ -9,8 +9,8 @@ async function scrapeOlimpica(searchQuery) {
     await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36');
 
     const searchUrl = `https://www.olimpica.com/${encodeURIComponent(searchQuery)}`;
-    await page.goto(searchUrl, { waitUntil: 'networkidle0' });
-    await page.waitForSelector('.vtex-product-summary-2-x-container', { timeout: 60000 });
+    await page.goto(searchUrl, { waitUntil: 'networkidle0', timeout: 100000 });
+    await page.waitForSelector('.vtex-product-summary-2-x-container', { timeout: 100000 });
 
     const filteredProducts = await page.evaluate((query) => {
         function normalizeString(str) {

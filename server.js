@@ -13,13 +13,22 @@ app.use(cors());
 app.use(express.static('public'));
 
 async function runParallelSearchesAndSave(searchQuery) {
-    const alkosto = await scrapeAlkosto(searchQuery);
-    const exito = await scrapeExito(searchQuery);
-    const falabella = await scrapeFalabella(searchQuery);
-    const mercadolibre = await scrapeMercadoLibre(searchQuery);
-    const olimpica = await scrapeOlimpica(searchQuery);
-    return [].concat(mercadolibre, alkosto, exito, olimpica, falabella);
+    try {
+        const [alkosto, exito, falabella, mercadolibre, olimpica] = await Promise.all([
+            scrapeAlkosto(searchQuery),
+            scrapeExito(searchQuery),
+            scrapeFalabella(searchQuery),
+            scrapeMercadoLibre(searchQuery),
+            scrapeOlimpica(searchQuery)
+        ]);
+        
+        return [].concat(mercadolibre, alkosto, exito, olimpica, falabella);
+    } catch (error) {
+        console.error('Error during parallel searches:', error);
+        throw error; 
+    }
 }
+
 
 app.get('/search', async (req, res) => {
     console.log('Buscando productos...');
